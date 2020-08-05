@@ -7,6 +7,6 @@ data onto the GUI with PyQT5 based on current date.
 
 ## Images
 
-![GUI](capture1.png)
+![Display Horoscope Info](capture1.png)
 
 ![All Selections](capture2.png)
