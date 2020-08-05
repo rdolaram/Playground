@@ -49,7 +49,7 @@ class Window(QWidget):
         self.show()
     
 
-
+    #METHOD FOR CLICKING MAIN BUTTON
     def onClick(self):
         audioDir = os.path.join(os.path.dirname(__file__), 'toss.mp3')
         pygame.init()
@@ -63,7 +63,7 @@ class Window(QWidget):
         self.labelImage.setPixmap(pixmap.scaled(150,150, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         self.vbox.addWidget(self.labelImage, alignment = Qt.AlignCenter)
         
-
+    #GENERATE RANDOM SIDE FROM TWO SELECTIONS
     def randomSide(self):
         headsDir = os.path.join(os.path.dirname(__file__), 'heads.png')
         tailsDir = os.path.join(os.path.dirname(__file__), 'tails.png')
