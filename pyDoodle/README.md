@@ -4,3 +4,11 @@
 
 Paint Program with adjustable size and color options created
 with PyQt5.
+
+## Images
+
+![Preview](/snapshot1.png)
+
+![Select Color](/snapshot2.png)
+
+![Select Brush Size](/snapshot3.png)
