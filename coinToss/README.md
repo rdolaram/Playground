@@ -6,5 +6,7 @@ Very simple coin toss program that utilizes random, pygame for sound effects as 
 
 ## Images
 
+
+
 ![Preview Picture](preview.png)
 
