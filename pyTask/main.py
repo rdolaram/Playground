@@ -7,8 +7,9 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore
 import sys
 
-name = 'nameTest'
-desc = 'descTest'
+items = {}
+
+selectText = ''
 
 class Window(QWidget):
     def __init__(self):
@@ -26,7 +27,7 @@ class Window(QWidget):
 
         #INPUT TASK
         self.lineEdit = QLineEdit(self)
-        self.lineEdit.returnPressed.connect(self.enterPressed)
+        self.lineEdit.returnPressed.connect(self.addTask)
 
         #BUTTONS
         addButton = QPushButton("Add", self)
@@ -54,11 +55,20 @@ class Window(QWidget):
         self.show()
 
     def addTask(self):
+        global items
+
         text = self.lineEdit.text()
         if text in self.list:
             self.duplicateError()
         else:
+            #Add it to the list of taken names
             self.list.append(text)
+            
+            #Add it to the dictionary with default desc
+            
+            items.update({text:'No notes associated with task.'})
+            print(items)
+            
             #CREATE THE ITEM
             curItem = QListWidgetItem()
             curItem.setText(text)
@@ -74,9 +84,6 @@ class Window(QWidget):
         for item in selected:
             self.listWidget.takeItem(self.listWidget.row(item))
 
-    def enterPressed(self):
-        text = self.lineEdit.text()
-        self.listWidget.addItem(text)
 
     def duplicateError(self):
         dialog = QDialog()
@@ -97,31 +104,12 @@ class Window(QWidget):
         dialog.exec_()
 
     def doubleClickedItem(self):
-        global name = self.listWidget.currentItem().text()
-        #global desc = 'peter piper picked a pickle'
-        
+        global selectedText
+        selectedText = self.listWidget.currentItem().text()
         
         #CREATE NEW WIDGET CLASS OBJECT
         self.secondWindow = SecondWindow()   
-        #Works
 
-        '''
-        implementation
-       
-        tasks = 
-        {
-        
-        "name": text,
-        "desc": "description",
-        
-        }
-       
-        '''
-
-
-
-
-        print(self.name)
 
 
 class SecondWindow(QWidget):
@@ -134,17 +122,22 @@ class SecondWindow(QWidget):
         self.initUI()
 
     def initUI(self):
-        
+        global items
+        global selectedText
 
+        
         #LAYOUT
         hbox = QHBoxLayout()
         
         nameEdit = QLineEdit()
         nameEdit.setAlignment(QtCore.Qt.AlignHCenter)
-        nameEdit.setText('text')
+        nameEdit.setText(selectedText)
         hbox.addWidget(nameEdit)
         
         descEdit = QTextEdit()
+        descEdit.setText(items.get(selectedText))
+
+
 
         hbox2 = QHBoxLayout()
         okButton = QPushButton("Ok")
@@ -163,7 +156,6 @@ class SecondWindow(QWidget):
         self.setLayout(vbox)
 
         self.show()
-
 
 
 
