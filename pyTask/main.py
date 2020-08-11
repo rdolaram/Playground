@@ -5,15 +5,10 @@ To do application
 
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore
-import random
 import sys
 
-#CODE TO IMPLEMENT
-#WHEN WE CLICK A TASK (QLISTWIDGET OBJECT)
-# WE ARE BROUGHT WITH A MENU OPTION SUCH AS RENAME
-# NOTES
-# ETC
-
+name = 'nameTest'
+desc = 'descTest'
 
 class Window(QWidget):
     def __init__(self):
@@ -27,7 +22,7 @@ class Window(QWidget):
 
     def initUI(self):
         self.setGeometry(1000,500,500,300)
-        self.setWindowTitle("To Do Application")
+        self.setWindowTitle("To Do")
 
         #INPUT TASK
         self.lineEdit = QLineEdit(self)
@@ -43,7 +38,7 @@ class Window(QWidget):
         #LIST
         self.list = []
         self.listWidget = QListWidget()
-
+        self.listWidget.itemDoubleClicked.connect(self.doubleClickedItem)
 
         #LAYOUT MANAGEMENT        
         hbox = QHBoxLayout()
@@ -65,12 +60,13 @@ class Window(QWidget):
         else:
             self.list.append(text)
             #CREATE THE ITEM
-            x = QListWidgetItem()
-            x.setText(text)
-            x.setFont(self.font)
-            x.setTextAlignment(QtCore.Qt.AlignHCenter)
-            
-            self.listWidget.addItem(x)
+            curItem = QListWidgetItem()
+            curItem.setText(text)
+            curItem.setFont(self.font)
+            curItem.setTextAlignment(QtCore.Qt.AlignHCenter)
+            print(curItem.text())
+            self.listWidget.addItem(curItem)
+    
 
     def removeTask(self):
         selected = self.listWidget.selectedItems()
@@ -99,6 +95,77 @@ class Window(QWidget):
     
         dialog.setLayout(vbox)
         dialog.exec_()
+
+    def doubleClickedItem(self):
+        global name = self.listWidget.currentItem().text()
+        #global desc = 'peter piper picked a pickle'
+        
+        
+        #CREATE NEW WIDGET CLASS OBJECT
+        self.secondWindow = SecondWindow()   
+        #Works
+
+        '''
+        implementation
+       
+        tasks = 
+        {
+        
+        "name": text,
+        "desc": "description",
+        
+        }
+       
+        '''
+
+
+
+
+        print(self.name)
+
+
+class SecondWindow(QWidget):
+    def __init__(self):
+        super(SecondWindow, self).__init__()
+        self.setWindowTitle("Info")
+        self.setFixedHeight(500)
+        self.setFixedWidth(300)
+
+        self.initUI()
+
+    def initUI(self):
+        
+
+        #LAYOUT
+        hbox = QHBoxLayout()
+        
+        nameEdit = QLineEdit()
+        nameEdit.setAlignment(QtCore.Qt.AlignHCenter)
+        nameEdit.setText('text')
+        hbox.addWidget(nameEdit)
+        
+        descEdit = QTextEdit()
+
+        hbox2 = QHBoxLayout()
+        okButton = QPushButton("Ok")
+        cancelButton = QPushButton("Cancel")
+        hbox2.addWidget(cancelButton)
+        hbox2.addWidget(okButton)
+
+
+        vbox = QVBoxLayout()
+        
+        vbox.addLayout(hbox)
+        vbox.addWidget(descEdit)
+        vbox.addLayout(hbox2)
+       
+        
+        self.setLayout(vbox)
+
+        self.show()
+
+
+
 
 #START THE APPLICATION
 if __name__ == '__main__':
