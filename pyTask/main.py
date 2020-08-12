@@ -58,6 +58,7 @@ class Window(QWidget):
         global items
         text = self.lineEdit.text()
         selectText = text
+        self.lineEdit.clear()
         if text in self.list:
             self.duplicateError()
         else:
@@ -103,19 +104,14 @@ class Window(QWidget):
     def doubleClickedItem(self):
         global selectText
         selectText = self.listWidget.currentItem().text()
-        
-        #CREATE NEW WIDGET CLASS OBJECT
+        self.listWidget.currentItem().setText(selectText)
         self.secondWindow = SecondWindow()
 
-        #UPDATE WINDOW WITH NEW CHANGES
-        print(selectText)
         
         
-        self.listWidget.currentItem().setText('selectText')
+        
 
     
-
-
 
 class SecondWindow(QWidget):
     def __init__(self):
@@ -124,7 +120,7 @@ class SecondWindow(QWidget):
         self.setFixedHeight(400)
         self.setFixedWidth(300)
         self.setWindowModality(QtCore.Qt.ApplicationModal)
-
+        
         self.initUI()
 
     def initUI(self):
@@ -134,13 +130,6 @@ class SecondWindow(QWidget):
         hbox = QHBoxLayout()
         hbox2 = QHBoxLayout()
         
-        #NAME EDIT
-        self.nameEdit = QLineEdit()
-        self.nameEdit.setAlignment(QtCore.Qt.AlignHCenter)
-        self.nameEdit.setText(selectText)
-        
-        hbox.addWidget(self.nameEdit)
-       
 
         #DESCRIPTION EDIT
         self.descEdit = QTextEdit()
@@ -173,17 +162,11 @@ class SecondWindow(QWidget):
         global items
         global selectText
     
-        nameText = self.nameEdit.text()
         descText = self.descEdit.toPlainText()
 
         #PUSH VALUES INTO DICTIONAIRY
         items[selectText] = descText # WORKS
-        
-        if selectText != nameText:
-            selectText = nameText
-        
-        print(selectText)
-        
+ 
         self.close()
 
     def cancel(self):
