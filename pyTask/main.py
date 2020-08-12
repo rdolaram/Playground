@@ -109,10 +109,6 @@ class Window(QWidget):
 
         
         
-        
-
-    
-
 class SecondWindow(QWidget):
     def __init__(self):
         super(SecondWindow, self).__init__()
@@ -134,7 +130,8 @@ class SecondWindow(QWidget):
         #DESCRIPTION EDIT
         self.descEdit = QTextEdit()
         self.descEdit.setText(items.get(selectText))
-
+        self.descEdit.canPaste()
+        self.descEdit.autoFormatting()
         
         #BUTTONS
         okButton = QPushButton("Ok")
