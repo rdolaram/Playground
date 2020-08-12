@@ -8,8 +8,8 @@ from PyQt5 import QtGui, QtCore
 import sys
 
 items = {}
-
 selectText = ''
+
 
 class Window(QWidget):
     def __init__(self):
@@ -56,25 +56,22 @@ class Window(QWidget):
 
     def addTask(self):
         global items
-
         text = self.lineEdit.text()
+        selectText = text
         if text in self.list:
             self.duplicateError()
         else:
-            #Add it to the list of taken names
+            #ADD TEXT TO THE LIST OF TAKEN NAMES
             self.list.append(text)
             
-            #Add it to the dictionary with default desc
-            
+            #ADD TEXT TO DICTIONAIRY AND SET DEFAULT VALUE
             items.update({text:'No notes associated with task.'})
-            print(items)
-            
+                        
             #CREATE THE ITEM
             curItem = QListWidgetItem()
             curItem.setText(text)
             curItem.setFont(self.font)
             curItem.setTextAlignment(QtCore.Qt.AlignHCenter)
-            print(curItem.text())
             self.listWidget.addItem(curItem)
     
 
@@ -104,11 +101,19 @@ class Window(QWidget):
         dialog.exec_()
 
     def doubleClickedItem(self):
-        global selectedText
-        selectedText = self.listWidget.currentItem().text()
+        global selectText
+        selectText = self.listWidget.currentItem().text()
         
         #CREATE NEW WIDGET CLASS OBJECT
-        self.secondWindow = SecondWindow()   
+        self.secondWindow = SecondWindow()
+
+        #UPDATE WINDOW WITH NEW CHANGES
+        print(selectText)
+        
+        
+        self.listWidget.currentItem().setText('selectText')
+
+    
 
 
 
@@ -116,32 +121,38 @@ class SecondWindow(QWidget):
     def __init__(self):
         super(SecondWindow, self).__init__()
         self.setWindowTitle("Info")
-        self.setFixedHeight(500)
+        self.setFixedHeight(400)
         self.setFixedWidth(300)
+        self.setWindowModality(QtCore.Qt.ApplicationModal)
 
         self.initUI()
 
     def initUI(self):
         global items
-        global selectedText
+        global selectText
 
-        
-        #LAYOUT
         hbox = QHBoxLayout()
-        
-        nameEdit = QLineEdit()
-        nameEdit.setAlignment(QtCore.Qt.AlignHCenter)
-        nameEdit.setText(selectedText)
-        hbox.addWidget(nameEdit)
-        
-        descEdit = QTextEdit()
-        descEdit.setText(items.get(selectedText))
-
-
-
         hbox2 = QHBoxLayout()
+        
+        #NAME EDIT
+        self.nameEdit = QLineEdit()
+        self.nameEdit.setAlignment(QtCore.Qt.AlignHCenter)
+        self.nameEdit.setText(selectText)
+        
+        hbox.addWidget(self.nameEdit)
+       
+
+        #DESCRIPTION EDIT
+        self.descEdit = QTextEdit()
+        self.descEdit.setText(items.get(selectText))
+
+        
+        #BUTTONS
         okButton = QPushButton("Ok")
+        okButton.clicked.connect(self.ok)
         cancelButton = QPushButton("Cancel")
+        cancelButton.clicked.connect(self.cancel)
+        
         hbox2.addWidget(cancelButton)
         hbox2.addWidget(okButton)
 
@@ -149,14 +160,34 @@ class SecondWindow(QWidget):
         vbox = QVBoxLayout()
         
         vbox.addLayout(hbox)
-        vbox.addWidget(descEdit)
+        vbox.addWidget(self.descEdit)
         vbox.addLayout(hbox2)
        
-        
         self.setLayout(vbox)
 
         self.show()
 
+
+    
+    def ok(self):
+        global items
+        global selectText
+    
+        nameText = self.nameEdit.text()
+        descText = self.descEdit.toPlainText()
+
+        #PUSH VALUES INTO DICTIONAIRY
+        items[selectText] = descText # WORKS
+        
+        if selectText != nameText:
+            selectText = nameText
+        
+        print(selectText)
+        
+        self.close()
+
+    def cancel(self):
+        self.close()
 
 
 #START THE APPLICATION
