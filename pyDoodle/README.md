@@ -10,6 +10,8 @@ with PyQt5.
 
 
 
-![Select Color](snapshot2.png)
+![ScreenShot](/Screenshots/snapshot1.png)
 
-![Select Brush Size](snapshot3.png)
+![ScreenShot](/Screenshots/snapshot2.png)
+
+![ScreenShot](/Screenshots/snapshot3.png)

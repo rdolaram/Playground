@@ -10,6 +10,6 @@ data onto the GUI with PyQT5 based on current date.
 
 
 
-![Info](capture1.png)
+![ScreenShot](/Screenshots/capture1.png)
 
-![All Selections](capture2.png)
+![ScreenShot](/Screenshots/capture2.png)
