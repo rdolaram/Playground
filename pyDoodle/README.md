@@ -10,8 +10,8 @@ with PyQt5.
 
 
 
-![ScreenShot](/Screenshots/snapshot1.png)
+![ScreenShot](Screenshots/snapshot1.png)
 
-![ScreenShot](/Screenshots/snapshot2.png)
+![ScreenShot](Screenshots/snapshot2.png)
 
-![ScreenShot](/Screenshots/snapshot3.png)
+![ScreenShot](Screenshots/snapshot3.png)

@@ -8,5 +8,5 @@ Very simple coin toss program that utilizes random, pygame for sound effects as 
 
 
 
-![ScreenShot](/Screenshots/preview.png)
+![ScreenShot](Screenshots/preview.png)
 

@@ -6,7 +6,7 @@ To do application
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore
 import sys
-
+import os
 items = {}
 selectText = ''
 
@@ -17,7 +17,7 @@ class Window(QWidget):
 
         self.dialogFont = QtGui.QFont("Arial", 15, QtGui.QFont.Bold)
         self.font = QtGui.QFont("Arial", 15)
-        
+        self.setWindowIcon(QtGui.QIcon(os.path.join(os.path.dirname(__file__), 'check.png')))
         self.initUI()
 
 
