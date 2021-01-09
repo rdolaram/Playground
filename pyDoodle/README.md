@@ -15,3 +15,5 @@ with PyQt5.
 ![ScreenShot](Screenshots/snapshot2.png)
 
 ![ScreenShot](Screenshots/snapshot3.png)
+
+![ScreenShot](Screenshots/snapshot4.png)
